@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Sala de Encontro</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-menu-toggle menu="first">
+        <ion-menu-button></ion-menu-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="main-tutorial" *ngIf="tutorial.show" (click)="hideTutorial()" [style]="tutorial_style()">
+    <img class="ion-margin-top" [src]="tutorial.image">
+    <ion-button class="ion-margin-top" size="small" expand="full" color="light">Clique para fechar</ion-button>
+  </div>
+
+  <h3 class="ion-padding-horizontal ion-text-center">
+    Pessoas ONLINE e OFFLINE para convidar e conversar
+  </h3>
+
+  <ion-card class="ion-text-center ion-padding-vertical">
+    Desejando filtragem detalhada, <br>
+    vá na opção <ion-text color="primary" routerLink="/main/chat/search/form">Nova Conversa</ion-text>
+  </ion-card>
+
+  <ion-card *ngFor="let user of users">
+    <ion-item style="position: relative;">
+      <img width="80" class="card-image" slot="start" [src]="user.profile_image_url">
+      <ion-label>
+        <h3 style="text-transform: capitalize;">
+          {{ user.name }}
+          <div class="user-status {{ user.online_status ? 'online' : 'offline' }}"> </div>
+        </h3>
+        <p>{{ user.city }} / {{ user.state }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-card-content>
+      Idade: {{ user.age }} anos <br>
+      Interesses: {{ user.show_preferences }}
+      <br>
+
+      <ion-row class="btn-row">
+        <ion-col size="6"> <ion-button [disabled]="disabledChatButton" size="small" (click)="sendInvite(user)">
+            <ion-icon name="chatbox-ellipses-outline" slot="start"></ion-icon>
+            Enviar convite
+          </ion-button></ion-col>
+        <ion-col size="6"> <ion-button [disabled]="disabledChatButton" size="small" (click)="touchBlockUser(user)"
+            color="danger">
+            <ion-icon name="ban-outline" slot="start"></ion-icon>
+            Bloquear
+          </ion-button></ion-col>
+      </ion-row>
+
+      <p *ngIf="disabledChatButton"> Você está sem saldo para conversar!</p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

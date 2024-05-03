@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>Meus dados</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main/home" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <user-profile *ngIf="loaded" [user]="user" (on_save)="updateUserData($event)"></user-profile>
+
+  <form (ngSubmit)="saveAccess()">
+    <ion-list-header class="ion-no-padding ion-margin-top">
+      <ion-label>Dados de acesso</ion-label>
+    </ion-list-header>
+
+    <!-- Email -->
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input [(ngModel)]="access.email" name="email" type="text" placeholder="Email para entrar no app"></ion-input>
+    </ion-item>
+
+    <!-- Senha -->
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Criar sua senha</ion-label>
+      <ion-input #passwordField [(ngModel)]="access.password" name="password" type="password" placeholder="Sua nova senha de acesso"></ion-input>
+      <ng-container *ngIf="passwordField.type === 'password'">
+        <ion-icon color="primary" class="ion-align-self-end" slot="end" (click)="passwordField.type = 'text'" name="eye">
+        </ion-icon>
+      </ng-container>
+      <ng-container *ngIf="passwordField.type === 'text'">
+        <ion-icon color="primary" class="ion-align-self-end" slot="end" (click)="passwordField.type = 'password'" name="eye-off">
+        </ion-icon>
+      </ng-container>
+    </ion-item>
+
+    <!-- Senha confirmação -->
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Confirmação de senha</ion-label>
+      <ion-input #confirmField [(ngModel)]="access.passwordRepeat" name="passwordRepeat" type="password" placeholder="Digite novamente sua nova senha de acesso"></ion-input>
+            <ng-container *ngIf="confirmField.type === 'password'">
+        <ion-icon color="primary" class="ion-align-self-end" slot="end" (click)="confirmField.type = 'text'" name="eye">
+        </ion-icon>
+      </ng-container>
+      <ng-container *ngIf="confirmField.type === 'text'">
+        <ion-icon color="primary" class="ion-align-self-end" slot="end" (click)="confirmField.type = 'password'" name="eye-off">
+        </ion-icon>
+      </ng-container>
+    </ion-item>
+
+    <ion-button
+      class="ion-margin-top"
+      type="submit"
+      color="primary"
+      expand="block"
+      [disabled]="!isPasswordEquals()">
+      Atualizar dados de acesso
+    </ion-button>
+
+  </form>
+
+</ion-content>

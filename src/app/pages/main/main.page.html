@@ -1,0 +1,64 @@
+<ion-menu side="start" menuId="first" contentId="main" swipe-gesture="true">
+  <ion-content class="ion-padding-vertical">
+
+    <figure>
+      <img src="assets/logos/sala-de-encontro-horizontal-primary.svg" alt="Sala de Encontro">
+    </figure>
+
+    <p class="ion-text-center">
+      <b>{{ username }}</b>
+    </p>
+
+    <p class="ion-text-center" *ngIf="showContent">
+      <ion-chip color="primary">
+        <ion-label color="primary">
+          <small>Saldo</small> <br>
+          <strong>{{ balance }} Minutos</strong>
+        </ion-label>
+      </ion-chip>
+    </p>
+
+    <ion-menu-toggle>
+      <p class="ion-text-center" *ngIf="balance <= 5 && showContent">
+        <ion-button color="warning" size="small" routerLink="/main/payment/list">
+          Comprar créditos
+        </ion-button>
+      </p>
+
+      <ion-item detail="detail" routerLink="/main/home">Início</ion-item>
+
+      <ion-item detail="detail" routerLink="/main/chat/search/form">Nova conversa</ion-item>
+      <ion-item detail="detail" routerLink="/main/chat/active">Conversas ativas ({{ chat.active }})</ion-item>
+      <ion-item detail="detail" routerLink="/main/chat/pending">Convites pendentes ({{ chat.pending }})</ion-item>
+      <ion-item detail="detail" routerLink="/main/chat/waiting">Aguardando respostas ({{ chat.waiting }})</ion-item>
+
+      <ion-item detail="detail" routerLink="/main/credit-card/index" *ngIf="balance <= 5 && showContent">Cartões de
+        crédito</ion-item>
+      <ion-item detail="detail" routerLink="/main/profile">Meus dados</ion-item>
+      <ion-item detail="detail" routerLink="/main/credit-statement" *ngIf="balance <= 5 && showContent">Extrato
+        detalhado</ion-item>
+      <ion-item detail="detail" routerLink="/main/tutorial">Tutorial</ion-item>
+      <ion-item detail="detail" routerLink="/main/about">Sobre o Aplicativo</ion-item>
+      <ion-item detail="detail" routerLink="/main/contact">Contato & suporte</ion-item>
+
+      <ion-item detail="detail" routerLink="/terms/use">Termos de uso</ion-item>
+      <ion-item detail="detail" routerLink="/terms/privacy">Termos de privacidade</ion-item>
+      <ion-item (click)="delete_account()">
+        <ion-button color="danger">Excluir minha conta
+        </ion-button>
+      </ion-item>
+      <ion-item lines="none" (click)="touchLogout()"><b>SAIR</b></ion-item>
+    </ion-menu-toggle>
+
+    <p class="ion-text-center ion-margin-vertical">
+      <small>
+        AOC DIGITAL <br />
+        <b>CNPJ 08.488.457/0001-07</b> <br />
+        saladeencontrosuporte@gmail.com
+      </small>
+    </p>
+
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main"></ion-router-outlet>

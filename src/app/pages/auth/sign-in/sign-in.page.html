@@ -1,0 +1,66 @@
+<ion-content class="ion-padding">
+
+  <figure>
+    <img src="assets/logos/sala-de-encontro-horizontal-primary.svg" alt="Sala de Encontro">
+  </figure>
+
+  <form [formGroup]="formData" (ngSubmit)="signIn()">
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">E-mail</ion-label>
+      <ion-input required formControlName="email" type="email" placeholder="Digite o e-mail do seu cadastro"></ion-input>
+    </ion-item>
+
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Senha</ion-label>
+      <ion-input #passwordField required formControlName="password" type="password" placeholder="Digite sua senha de acesso"></ion-input>
+
+      <ng-container *ngIf="passwordField.type === 'password'">
+        <ion-icon color="primary" class="ion-align-self-end" slot="end" (click)="passwordField.type = 'text'" name="eye">
+        </ion-icon>
+      </ng-container>
+
+      <ng-container *ngIf="passwordField.type === 'text'">
+        <ion-icon color="primary" class="ion-align-self-end" slot="end" (click)="passwordField.type = 'password'" name="eye-off">
+        </ion-icon>
+      </ng-container>
+    </ion-item>
+
+    <ion-button
+      expand="block"
+      class="ion-margin-top"
+      size="default"
+      [disabled]="!formData.valid"
+      type="submit">
+      Entrar
+    </ion-button>
+  </form>
+
+  <p class="ion-text-center">
+    <a routerLink="/auth/password-recovery" class="ion-text-center">
+      <b>Esqueci minha senha?</b>
+    </a>
+  </p>
+
+  <p class="ion-text-center">
+    Ao acessar a plataforma representa que você concorda com os <a routerLink="/terms/use">termos de uso</a> e nossa <a routerLink="/terms/privacy">política de privacidade</a>.
+  </p>
+
+  <p class="ion-text-center">
+    Dúvidas: <a href="mailto:saladeencontrosuporte@gmail.com">saladeencontrosuporte@gmail.com</a>
+  </p>
+
+  <br>
+
+  <p class="ion-text-center">
+    <b>Ainda não tem cadastro?</b> <br>
+    Crie um cadastro agora mesmo, com total anonimato e privacidade nas conversas.
+  </p>
+
+  <ion-button
+    expand="block"
+    color="secondary"
+    routerLink="/auth/sign-up/step-first">
+      Criar conta grátis
+  </ion-button>
+
+</ion-content>

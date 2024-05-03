@@ -1,0 +1,10 @@
+<ion-list class="ion-no-padding" lines="none">
+  <ion-label position="stacked">Preferências</ion-label>
+  <ion-item *ngFor="let preference of list; let i = index" class="ion-no-padding" (ionChange)="select($event)">
+    <ion-checkbox [value]="preference.id" [(ngModel)]="preference.checked" ></ion-checkbox>
+    <ion-label>
+      <ion-icon [src]="preference.icon_url"></ion-icon>
+      {{ preference.name }}
+    </ion-label>
+  </ion-item>
+</ion-list>

@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-buttons slot="start">
+
+      <ion-button (click)="touchAskToLeave()" style="color: red;">
+        SAIR
+      </ion-button>
+    </ion-buttons>
+
+    <div class="profile_info" *ngIf="currentChat.name !== ''">
+      <ion-img class="profile_img" [src]="currentChat.profile_image_url"></ion-img>
+      <div class="user_info">
+        <ion-text class="user_name">{{currentChat.name}}</ion-text>
+        <ion-text class="user_status">{{currentChat.age}} anos - {{currentChat.city}}</ion-text>
+        <ion-text class="user_status">{{currentChat.show_preferences}}</ion-text>
+      </div>
+    </div>
+
+    <ion-buttons slot="end">
+      <ion-chip class="ion-text-center" style="font-size: 10px;" *ngIf="showContent">
+        <ion-label style="color: white;">
+          <small>Saldo</small> <br>
+          <strong>{{ current_balance }} Minutos</strong>
+        </ion-label>
+      </ion-chip>
+
+      <ion-button (click)="touchOpenVideoChat()">
+        <ion-icon slot="icon-only" name="videocam-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-no-padding">
+  <div style="padding-bottom: 50px;">
+    <ng-container *ngFor="let message of messages" class="container">
+      <div [ngClass]="is_sender(message)">
+        <!-- {{message.content}} -->
+        <div [innerHTML]="returnTextNextLine(message.content)"> </div>
+        <div *ngIf="message?.attachment_url">
+          <ion-img class="attachment_url_img" [src]="message.attachment_url"></ion-img>
+        </div>
+        <div *ngIf="message?.audio_url" class="audio_url">
+          <audio controls preload="metadata" controlsList="nodownload">
+            <source [src]="message?.audio_url" type="audio/mpeg">
+          </audio>
+        </div>
+        <div style="font-size: 10px;">{{message.created_at_formatted}}</div>
+      </div>
+    </ng-container>
+    <div class="receiver-block sending" *ngIf="show_message?.length > 0">
+      {{show_message}}
+    </div>
+  </div>
+
+  <div style="position: fixed; bottom: 0; background: white; width: -webkit-fill-available;">
+    <ion-item lines="none" class="ion-no-padding chat_actions">
+      <ion-button [ngClass]="{'pressed_button': showEmojiPicker}" (click)="showEmojiPicker = !showEmojiPicker"
+        class="emoji_btn" slot="start" fill="clear"> <ion-icon slot="icon-only" name="happy-outline"></ion-icon>
+      </ion-button>
+
+      <ion-textarea type="text" [(ngModel)]="message" (ngModelChange)="isWrithing($event)" placeholder="Digite algo..."
+        (keyup.enter)="touchNextLine()"></ion-textarea>
+
+      <div class="list_action_btn">
+        <ion-button slot="end" fill="clear" (click)="touchOpenCamera()"> <ion-icon slot="icon-only"
+            name="image-outline"></ion-icon> </ion-button>
+        <ion-button slot="end" fill="clear" appPressHold (touchstart)="touchRecordAudio($event)"
+          (touchend)="touchStopRecordAudio($event)">
+          <ion-icon slot="icon-only" name="mic-outline"></ion-icon> </ion-button>
+        <ion-button slot="end" fill="clear" (click)="touchSendMessage()"> <ion-icon slot="icon-only"
+            name="send-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+
+    <div class="emojiContainer" *ngIf="showEmojiPicker" [style.height]="showEmojiPicker?'250px':'0px'">
+      <!--Show/Hide emoji picker. Don't use *ngIf because the component will be created again and again and cause performance issue-->
+      <emoji-picker (onEmojiSelect)="handlerEmojiEvent($event)"></emoji-picker>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-fab style="padding-bottom: 50px;" vertical="bottom" horizontal="end" slot="fixed" *ngIf="showScrollDownIcon"
+  (click)="scrollToBottom()">
+  <ion-fab-button>
+    <ion-icon name="arrow-down"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

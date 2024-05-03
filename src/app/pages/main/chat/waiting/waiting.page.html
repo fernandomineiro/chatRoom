@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>Aguardando respostas</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main/home" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngIf="users.length == 0">
+    <p class="ion-text-center">
+      Nenhum convite.
+    </p>
+  </ion-card>
+
+  <ion-card *ngFor="let user of users">
+    <ion-item style="position: relative;">
+      <img width="80" class="card-image" slot="start" [src]="user.receiver.profile_image_url">
+      <ion-label>
+        <h3>
+          {{ user.receiver.name }}
+          <div class="user-status {{ user.receiver.online_status ? 'online' : 'offline' }}"></div>
+        </h3>
+        <p>{{ user.receiver.city }} / {{ user.receiver.state }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-card-content>
+      Idade: {{ user.receiver.age }} anos <br>
+      Interesses: {{ user.receiver.show_preferences }} <br>
+      <i>
+        <small>Convite enviado em: {{ user.created_at_formatted }}</small>
+      </i>
+      <br>
+      <ion-button size="small" (click)="openDetails(user)">Detalhes</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

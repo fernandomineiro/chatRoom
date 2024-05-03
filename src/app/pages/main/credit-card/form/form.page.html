@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>Novo cartão</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/credit-card/index" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <form [formGroup]="formData" (ngSubmit)="save()">
+
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Bandeira</ion-label>
+      <ion-select formControlName="cardBannerId" interface="action-sheet" okText="Ok" cancelText="Cancelar"
+        placeholder="Escolha uma opção">
+        <ion-select-option *ngFor="let cardBrand of cardBrands" [value]="cardBrand.id">
+          {{ cardBrand.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Número do cartão</ion-label>
+      <ion-input formControlName="number" type="tel" maxlength="19" minlength="19" appMask="**** **** **** ****"
+        placeholder="XXXX XXXX XXXX XXXX" appRemoveFromInput="letter"></ion-input>
+    </ion-item>
+
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Nome impresso no cartão</ion-label>
+      <ion-input formControlName="name" type="text" maxlength="60" minlength="5" placeholder="Nome impresso no cartão"
+        appRemoveFromInput="number"></ion-input>
+    </ion-item>
+
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">CPF</ion-label>
+      <ion-icon slot="end" name="information-circle" (click)="touchShowPopover()"></ion-icon>
+      <ion-input formControlName="cpf" type="text" minlength="11" maxlength="14" inputmode="numeric"
+        appMask="***.***.***-**" appRemoveFromInput="letter" placeholder="XXX.XXX.XXX-XX"
+        (ngModelChange)="isCpfValid()"></ion-input>
+    </ion-item>
+    <p class="invalidFild" *ngIf="formData.value.cpf.length === 14 && !isCpfValid()">
+      * CPF informado é inválido!
+    </p>
+
+    <ion-row>
+      <ion-col size="4">
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">Mês</ion-label>
+          <ion-input formControlName="month" maxlength="2" placeholder="MM" type="tel" inputmode="numeric"
+            appRemoveFromInput="letter" (ngModelChange)="isValidMonth()"></ion-input>
+        </ion-item>
+        <p class="invalidFild" *ngIf="formData.value.month.length === 2 && !isValidMonth()">
+          * Mês inválido!
+        </p>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">Ano</ion-label>
+          <ion-input formControlName="year" maxlength="4" placeholder="AAAA" type="tel" inputmode="numeric"
+            appRemoveFromInput="letter" (keyup)="isValidYear()"></ion-input>
+        </ion-item>
+        <p class="invalidFild" *ngIf="formData.value.year.length === 4 && !isValidYear()">
+          * Ano inválido!
+        </p>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">CVV</ion-label>
+          <ion-input formControlName="securityCode" placeholder="XXX" maxlength="3" minlength="3" type="tel"
+            appRemoveFromInput="letter" inputmode="numeric"></ion-input>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <p class="ion-text-center"> Veja nossa <a routerLink="/terms/privacy">política de privacidade</a>.</p>
+
+    <ion-button expand="block" class="ion-margin-top" type="submit" [disabled]="!formData.valid">
+      Adicionar
+    </ion-button>
+
+  </form>
+
+</ion-content>

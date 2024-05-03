@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>Extrato detalhado</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main/home" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding">
+
+  <ion-card>
+    <ion-card-content class="ion-text-center">
+      <h1>
+        <small>Saldo</small> <br>
+        {{ balance }} minutos
+      </h1>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button color="warning" expand="block" class="ion-margin" routerLink="/main/payment/list">
+    Comprar créditos
+  </ion-button>
+
+  <ion-card *ngIf="orders.length == 0">
+    <p class="ion-text-center ion-padding">
+      Nenhuma compra no momento.
+    </p>
+  </ion-card>
+
+  <ion-list class="ion-margin">
+
+    <ion-item lines="none" *ngFor="let order of orders">
+      <ion-label>
+        <small>{{ order.created_at_formatted }}</small>
+      </ion-label>
+
+      <ion-label class="ion-text-wrap">
+        <b>{{ order.order_carts[0].plan_name }}</b> <br>
+        {{ order.price_formatted }} - {{ order.minutes }} minutos
+      </ion-label>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

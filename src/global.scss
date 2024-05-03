@@ -1,0 +1,87 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+ion-content {
+  --background: url("assets/background/pattern-light.svg");
+}
+
+ion-item {
+  --background: transparent;
+  --border-color: #222428;
+}
+
+ion-app {
+  margin-top: env(safe-area-inset-top);
+  margin-bottom: env(safe-area-inset-bottom);
+  overflow-y: scroll !important;
+}
+
+ion-toolbar {
+  padding-top: 0px !important;
+}
+
+.full-popover {
+  width: 90vw;
+  height: 90vh;
+  margin: 5vh 5vw;
+}
+
+ion-popover.full-popover {
+  --width: 540px;
+  --max-width: 100%;
+}
+
+ion-popover.full-popover div.popover-content {
+  top: 0 !important;
+  left: inherit !important;
+  right: 0;
+
+  transform-origin: right top !important;
+
+  --min-height: 100%;
+
+  background: white;
+
+  box-shadow: -8px 0 16px rgba(0, 0, 0, 0.12);
+  border-radius: 0;
+}
+
+.popover-content {
+  border-radius: 10px !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.invalidFild {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px !important;
+  margin-bottom: -5px !important;
+  // position: absolute;
+}

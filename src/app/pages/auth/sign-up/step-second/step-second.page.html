@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="secondary" mode="md">
+    <ion-title>Passo 2 de 2</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/auth/sign-up/step-first" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+<user-profile [user]="user" button="Finalizar meu cadastro" (on_save)="redirect($event)"></user-profile>
+
+  <p class="ion-text-center">
+    <a routerLink="/auth/sign-in" routerDirection="back">Sair e finalizar mais tarde</a>
+  </p>
+
+</ion-content>

@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>Conversas ativas</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button (click)="touchBackToHome()" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngIf="users.length == 0">
+    <p class="ion-text-center">
+      Nenhuma conversa.
+    </p>
+  </ion-card>
+
+  <ion-card *ngFor="let user of users">
+    <ion-item style="position: relative;">
+      <img width="80" class="card-image" slot="start" [src]="user.user_data.profile_image_url">
+      <ion-label>
+        <h3>
+          {{ user.user_data.name }}
+          <div class="user-status {{ user.user_data.online_status ? 'online' : 'offline' }}"></div>
+        </h3>
+        <p>{{ user.user_data.city }} / {{ user.user_data.state }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-card-content>
+      Idade: {{ user.user_data.age }} anos <br>
+      Interesses: {{ user.user_data.show_preferences }} <br>
+      <i>
+        <small>Conversando desde {{ user.invite_chat.created_at_formatted }}</small>
+      </i>
+      <br>
+      <!-- <ion-button [disabled]="disabledChatButton" size="small" (click)="touchOpenChat(user.user_data)">
+        Conversar
+      </ion-button> -->
+
+      <ion-row class="btn-row">
+        <ion-col size="6"> <ion-button [disabled]="disabledChatButton" size="small"
+            (click)="touchOpenChat(user.user_data)">
+            <ion-icon name="chatbox-ellipses-outline" slot="start"></ion-icon>
+            Conversar
+          </ion-button></ion-col>
+        <ion-col size="6"> <ion-button [disabled]="disabledChatButton" size="small" (click)="touchBlockUser(user.user_data)"
+            color="danger">
+            <ion-icon name="ban-outline" slot="start"></ion-icon>
+            Bloquear
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <p *ngIf="disabledChatButton"> Você está sem saldo para conversar!</p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

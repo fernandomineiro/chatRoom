@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-searchbar animated="true" mode="md" [(ngModel)]="search" (ngModelChange)="filter()" ></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-list>
+        <ion-item class="ion-border" *ngFor="let item of filtered" (click)="selectItem(item)" tappable [ngClass]="is_selected(item)">
+            <ion-avatar *ngIf="item.icon" slot="start">
+                <img [src]="item?.icon" />
+            </ion-avatar>
+            <ion-label > {{ item?.name }}</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar class="ion-text-right">
+        <ion-button fill="clear" (click)="dismiss()"> Cancelar </ion-button>
+        <ion-button fill="clear" (click)="close()"> OK </ion-button>
+    </ion-toolbar>
+</ion-footer>

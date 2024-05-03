@@ -1,0 +1,144 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>{{ plan.name }}</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/payment/list" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+
+      <ion-col size="12">
+        <ion-card>
+
+          <ion-card-header>
+            <ion-card-subtitle class="ion-text-center">{{ plan.name }}</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content class="ion-text-center">
+            <b>{{ plan.priceFormatted }}</b> <br>
+            {{ plan.minutes }} minutos
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12">
+
+        <ion-segment [value]="paymentType" (ionChange)="changePaymentType($event)">
+
+          <!-- Cartão existente -->
+          <ion-segment-button value="my-card">
+            <ion-label>Meus cartões</ion-label>
+          </ion-segment-button>
+
+          <!-- Novo cartão -->
+          <ion-segment-button value="new-card">
+            <ion-label>Novo cartão</ion-label>
+          </ion-segment-button>
+
+        </ion-segment>
+
+        <ion-item class="ion-no-padding" *ngIf="paymentType == 'my-card'">
+          <ion-label position="stacked">Usar um de meus cartões</ion-label>
+          <ion-select interface="action-sheet" okText="Ok" cancelText="Cancelar" placeholder="Escolha uma opção"
+            [(ngModel)]="selectedCardId">
+
+            <ion-select-option *ngFor="let myCard of cards" [value]="myCard.id">
+              {{ myCard.formatted_name }} ({{ myCard.card_banner.name }})
+            </ion-select-option>
+
+          </ion-select>
+        </ion-item>
+
+        <ion-button expand="block" class="ion-margin-top" *ngIf="paymentType == 'my-card'" (click)="paySelectedCard()"
+          [disabled]="selectedCardId == 0">
+          Pagar com o cartão escolhido
+        </ion-button>
+
+        <form *ngIf="paymentType == 'new-card'" [formGroup]="newCard" (ngSubmit)="payNewCard()">
+
+          <ion-item class="ion-no-padding">
+            <ion-label position="stacked">Bandeira</ion-label>
+            <ion-select formControlName="cardBannerId" interface="action-sheet" okText="Ok" cancelText="Cancelar"
+              placeholder="Escolha uma opção">
+              <ion-select-option *ngFor="let cardBrand of cardBrands" [value]="cardBrand.id">
+                {{ cardBrand.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item class="ion-no-padding">
+            <ion-label position="stacked">Número do cartão</ion-label>
+            <ion-input formControlName="number" type="tel" maxlength="19" minlength="19" appMask="**** **** **** ****"
+              placeholder="XXXX XXXX XXXX XXXX" appRemoveFromInput="letter"></ion-input>
+          </ion-item>
+
+          <ion-item class="ion-no-padding">
+            <ion-label position="stacked">Nome impresso no cartão</ion-label>
+            <ion-input formControlName="name" type="text" maxlength="60" minlength="5"
+              placeholder="Nome impresso no cartão" appRemoveFromInput="number"></ion-input>
+          </ion-item>
+
+          <ion-item class="ion-no-padding">
+            <ion-label position="stacked">CPF</ion-label>
+            <ion-icon slot="end" name="information-circle" (click)="touchShowPopover()"></ion-icon>
+            <ion-input formControlName="cpf" type="text" minlength="11" maxlength="14" inputmode="numeric"
+              appMask="***.***.***-**" appRemoveFromInput="letter" placeholder="XXX.XXX.XXX-XX"
+              (ngModelChange)="isCpfValid()"></ion-input>
+          </ion-item>
+          <p class="invalidFild" *ngIf="newCard.value.cpf.length === 14 && !isCpfValid()">
+            * CPF informado é inválido!
+          </p>
+
+          <ion-row>
+            <ion-col size="4">
+              <ion-item class="ion-no-padding">
+                <ion-label position="stacked">Mês</ion-label>
+                <ion-input formControlName="month" maxlength="2" placeholder="MM" type="tel" inputmode="numeric"
+                  appRemoveFromInput="letter" (ngModelChange)="isValidMonth()"></ion-input>
+              </ion-item>
+              <p class="invalidFild" *ngIf="newCard.value.month.length === 2 && !isValidMonth()">
+                * Mês inválido!
+              </p>
+            </ion-col>
+
+            <ion-col size="4">
+              <ion-item class="ion-no-padding">
+                <ion-label position="stacked">Ano</ion-label>
+                <ion-input formControlName="year" maxlength="4" placeholder="AAAA" type="tel" inputmode="numeric"
+                  appRemoveFromInput="letter" (keyup)="isValidYear()"></ion-input>
+              </ion-item>
+              <p class="invalidFild" *ngIf="newCard.value.year.length === 2 && !isValidYear()">
+                * Ano inválido!
+              </p>
+            </ion-col>
+
+            <ion-col size="4">
+              <ion-item class="ion-no-padding">
+                <ion-label position="stacked">CVV</ion-label>
+                <ion-input formControlName="securityCode" placeholder="XXX" maxlength="3" minlength="3" type="tel"
+                  appRemoveFromInput="letter" inputmode="numeric"></ion-input>
+              </ion-item>
+            </ion-col>
+
+          </ion-row>
+
+          <ion-button type="submit" expand="block" class="ion-margin-top" [disabled]="!newCard.valid">
+            Pagar com o novo cartão
+          </ion-button>
+
+        </form>
+
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>Tutorial</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main/home" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let tutorial of tutorials">
+      <img width="100%" [src]="tutorial.image_url">
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>

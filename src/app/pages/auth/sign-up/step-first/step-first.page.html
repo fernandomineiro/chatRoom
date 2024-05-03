@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="secondary" mode="md">
+    <ion-title>Passo 1 de 2</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/auth/sign-in" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div *ngIf="showUserTerms" class="terms-container">
+
+    <div [innerHTML]="content" class="userTerms"></div>
+
+    <ion-item lines="none">
+      <ion-label class="accept-label">Eu declaro que li e concordo com os termos de uso do aplicativo</ion-label>
+      <ion-checkbox [(ngModel)]="acceptedTerms"> </ion-checkbox>
+    </ion-item>
+
+    <ion-button [disabled]="!acceptedTerms" expand="block" size="default" (click)="showUserTerms = false">
+      Continuar
+    </ion-button>
+  </div>
+
+
+  <form *ngIf="!showUserTerms">
+
+    <!-- Nome / apelido -->
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Nome / Apelido</ion-label>
+      <ion-input [(ngModel)]="form.name" name="username" type="text" placeholder="Seu nome na app"></ion-input>
+    </ion-item>
+
+    <!-- Email -->
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input [(ngModel)]="form.email" name="email" type="text" placeholder="Email para entrar no app"></ion-input>
+    </ion-item>
+
+    <!-- Email -->
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Confirme o email</ion-label>
+      <ion-input [(ngModel)]="form.confirm_email" name="email" type="text"
+        placeholder="Digite novamente o seu email"></ion-input>
+    </ion-item>
+
+    <!-- Senha -->
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Criar sua senha</ion-label>
+      <ion-input #passwordField [(ngModel)]="form.password" name="password" type="password"
+        placeholder="Sua senha de acesso"></ion-input>
+      <ng-container *ngIf="passwordField.type === 'password'">
+        <ion-icon color="primary" class="ion-align-self-end" slot="end" (click)="passwordField.type = 'text'"
+          name="eye">
+        </ion-icon>
+      </ng-container>
+
+      <ng-container *ngIf="passwordField.type === 'text'">
+        <ion-icon color="primary" class="ion-align-self-end" slot="end" (click)="passwordField.type = 'password'"
+          name="eye-off">
+        </ion-icon>
+      </ng-container>
+    </ion-item>
+
+    <!-- Senha confirmação -->
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Confirmação de senha</ion-label>
+      <ion-input #confirmPasswordField [(ngModel)]="form.passwordConfirmation" name="passwordConfirmation"
+        type="password" placeholder="Digite novamente sua senha de acesso"></ion-input>
+      <ng-container *ngIf="confirmPasswordField.type === 'password'">
+        <ion-icon color="primary" class="ion-align-self-end" slot="end" (click)="confirmPasswordField.type = 'text'"
+          name="eye">
+        </ion-icon>
+      </ng-container>
+
+      <ng-container *ngIf="confirmPasswordField.type === 'text'">
+        <ion-icon color="primary" class="ion-align-self-end" slot="end" (click)="confirmPasswordField.type = 'password'"
+          name="eye-off">
+        </ion-icon>
+      </ng-container>
+    </ion-item>
+
+    <ion-button color="secondary" expand="block" class="ion-margin-top" size="default" (click)="signUp()">
+      Cadastrar
+    </ion-button>
+  </form>
+
+</ion-content>

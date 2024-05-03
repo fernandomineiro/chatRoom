@@ -1,0 +1,6 @@
+<ion-item (click)="open()" class="select-container ion-no-padding">
+    <ion-label position="stacked">{{title}}</ion-label>
+    <div aria-hidden="true" class="select-text" part="text" *ngIf="!(label?.length)" >{{placeholder}}</div>
+    <div aria-hidden="true" class="select-text" part="text" *ngIf="label">{{label}}</div>
+    <div class="select-icon" role="presentation" part="icon"><div class="select-icon-inner"></div></div>
+</ion-item>

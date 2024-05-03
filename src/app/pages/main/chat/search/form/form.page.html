@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>Nova conversa</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main/home" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="search()">
+
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Estado</ion-label>
+      <ion-select
+        (ionChange)="loadCities($event)"
+        name="stateId"
+        [(ngModel)]="data.state_id"
+        interface="action-sheet"
+        okText="Ok"
+        cancelText="Cancelar"
+        placeholder="Escolha uma opção">
+        <ion-select-option *ngFor="let state of states" [value]="state.id">
+          {{ state.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <popover-select [items]="cities" placeholder="Selecione" [title]="'Cidade'" (change)="select_city($event)" labelKey="name" valueKey="id" ></popover-select>
+
+    <ion-row>
+
+      <ion-col size="6">
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">Idade inicial</ion-label>
+          <ion-select
+            [(ngModel)]="data.initial_age"
+            name="initialAge"
+            interface="action-sheet"
+            okText="Ok"
+            cancelText="Cancelar"
+            placeholder="Escolha uma opção">
+            <ion-select-option *ngFor="let age of ages" [value]="age">
+              {{ age }} anos
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item class="ion-no-padding">
+          <ion-label position="stacked">Idade final</ion-label>
+          <ion-select
+            name="finalAge"
+            [(ngModel)]="data.final_age"
+            interface="action-sheet"
+            okText="Ok"
+            cancelText="Cancelar"
+            placeholder="Escolha uma opção">
+            <ion-select-option *ngFor="let age of ages" [value]="age">
+              {{ age }} anos
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Interesse</ion-label>
+      <ion-select
+        name="interestId"
+        [(ngModel)]="data.interest_id"
+        interface="action-sheet"
+        okText="Ok"
+        cancelText="Cancelar"
+        placeholder="Escolha uma opção">
+        <ion-select-option *ngFor="let interest of interests" [value]="interest.id">
+          {{ interest.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="ion-no-padding">
+      <ion-label position="stacked">Declaração</ion-label>
+      <ion-select
+        name="selfDeclarationId"
+        [(ngModel)]="data.declare_yourself_id"
+        interface="action-sheet"
+        okText="Ok"
+        cancelText="Cancelar"
+        placeholder="Escolha uma opção">
+        <ion-select-option *ngFor="let selfDeclaration of selfDeclarations" [value]="selfDeclaration.id">
+          {{ selfDeclaration.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <preferences-list (selected)="preferences_changed($event)"></preferences-list>
+
+    <ion-button expand="block ion-margin-top" type="submit">
+      Busca
+    </ion-button>
+
+  </form>
+</ion-content>

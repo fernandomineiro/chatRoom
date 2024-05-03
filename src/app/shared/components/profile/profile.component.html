@@ -1,0 +1,133 @@
+<form (ngSubmit)="saveProfile()">
+  <!-- Adicionar foto -->
+  <ion-item lines="none">
+    <ion-row>
+      <ion-col size="4">
+        <ion-img [src]="profile_image ? profile_image : '../assets/images/default_profile.png'" class="profile_img"></ion-img>
+      </ion-col>
+      <ion-col size="8">
+
+        <p> {{ profile_image ? 'Alterar imagem' : 'Adicionar imagem'}}</p>
+        <div>
+          <ion-button (click)="touchOpenCamera('camera')" color="primary">
+            <ion-icon slot="start" name="camera-outline"></ion-icon>
+            Camera
+          </ion-button>
+
+          <ion-button (click)="touchOpenCamera('gallery')" color="primary">
+            <ion-icon slot="start" name="images-outline"></ion-icon>
+            Galeria
+          </ion-button>
+        </div>
+
+      </ion-col>
+
+    </ion-row>
+
+  </ion-item>
+
+
+  <ion-item class="ion-no-padding">
+    <ion-label position="stacked">Nome / Apelido</ion-label>
+    <ion-input [(ngModel)]="user.name" name="name" type="text" placeholder="Seu nome no app"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-no-padding">
+    <ion-label position="stacked">DDD / Celular</ion-label>
+    <ion-input [(ngModel)]="user.phone" mask="(**) *****-****" minlength="15" maxlength="15" name="phone" type="tel"
+      placeholder="Seu telefone de contato"></ion-input>
+  </ion-item>
+
+  <ion-item class="ion-no-padding">
+    <ion-label position="stacked">Data de nascimento</ion-label>
+    <ion-datetime [(ngModel)]="user.birthday" name="birthday" displayFormat="DD/MM/YYYY" doneText="Ok"
+      cancelText="Cancelar" placeholder="É importante que você mais de 18 anos"></ion-datetime>
+  </ion-item>
+
+  <ion-item class="ion-no-padding">
+    <ion-label position="stacked">Sexo</ion-label>
+    <ion-select [(ngModel)]="user.sex_id" name="genderId" interface="action-sheet" okText="Ok" cancelText="Cancelar"
+      placeholder="Escolha uma opção">
+      <ion-select-option *ngFor="let gender of genders" [value]="gender.id">
+        {{ gender.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item class="ion-no-padding">
+    <ion-label position="stacked">Interesse</ion-label>
+    <ion-select [(ngModel)]="user.interest_id" name="interestId" interface="action-sheet" okText="Ok"
+      cancelText="Cancelar" placeholder="Escolha uma opção">
+      <ion-select-option *ngFor="let interest of interests" [value]="interest.id">
+        {{ interest.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item class="ion-no-padding">
+    <ion-label position="stacked">Você se declara</ion-label>
+    <ion-select [(ngModel)]="user.declare_yourself_id" name="selfDeclarationId" interface="action-sheet" okText="Ok"
+      cancelText="Cancelar" placeholder="Escolha uma opção">
+      <ion-select-option *ngFor="let selfDeclaration of selfDeclarations" [value]="selfDeclaration.id">
+        {{ selfDeclaration.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item class="ion-no-padding">
+    <ion-label position="stacked">Estado</ion-label>
+    <ion-select (ionChange)="loadCities($event)" [(ngModel)]="user.stateId" name="stateId" interface="action-sheet"
+      okText="Ok" cancelText="Cancelar" placeholder="Escolha uma opção">
+      <ion-select-option *ngFor="let state of states" [value]="state.id">
+        {{ state.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <popover-select #cities_select [selected]="user.cityId" [items]="cities" [title]="'Cidade'"
+    [placeholder]="city_placeholder" (change)="select_city($event)" labelKey="name" valueKey="id"></popover-select>
+
+  <preferences-list [init]="user.preference_ids" class="ion-margin-top"
+    (selected)="preferences_changed($event)"></preferences-list>
+
+  <ion-list-header class="ion-no-padding">
+    <ion-label>Aceites</ion-label>
+  </ion-list-header>
+
+  <ion-item class="ion-no-padding">
+    <ion-label>Tenho no mínimo 18 anos</ion-label>
+    <ion-toggle [(ngModel)]="user.age_rule_accepted" name="ageRuleAccepted" color="secondary"></ion-toggle>
+  </ion-item>
+
+  <ion-item class="ion-no-padding">
+    <ion-label>Não divulgarei e aceitarei pedofilia</ion-label>
+    <ion-toggle [(ngModel)]="user.pedophilia_rule_accepted" name="pedophiliaRuleAccepted"
+      color="secondary"></ion-toggle>
+  </ion-item>
+
+  <ion-item class="ion-no-padding">
+    <ion-label>Não farei bullying</ion-label>
+    <ion-toggle [(ngModel)]="user.bullying_rule_accepted" name="bullyingRuleAccepted" color="secondary"></ion-toggle>
+  </ion-item>
+
+  <ion-item class="ion-no-padding">
+    <ion-label>Prometo manter o anônimato e privacidade dos usuários</ion-label>
+    <ion-toggle [(ngModel)]="user.anonymous_rule_accepted" name="anonymousRuleAccepted" color="secondary"></ion-toggle>
+  </ion-item>
+
+  <ion-item class="ion-no-padding">
+    <ion-label>Aceito os <a routerLink="/terms/use">termos de uso</a></ion-label>
+    <ion-toggle [(ngModel)]="user.use_therm_rule_accepted" name="useThermRuleAccepted" color="secondary"></ion-toggle>
+  </ion-item>
+
+  <ion-item class="ion-no-padding">
+    <ion-label>Aceito os <a routerLink="/terms/privacy">termos de privacidade</a></ion-label>
+    <ion-toggle [(ngModel)]="user.privacy_therm_rule_accepted" name="privacyThermRuleAccepted"
+      color="secondary"></ion-toggle>
+  </ion-item>
+
+  <ion-button type="submit" color="primary" expand="block" class="ion-margin-top">
+    {{button}}
+  </ion-button>
+
+</form>

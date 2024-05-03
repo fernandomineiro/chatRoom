@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>Pessoas</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main/chat/search/form" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <p class="ion-text-center" *ngIf="users.length == 0">
+    Experimente mudar os filtros <br>
+    Não encontramos ninguém com estas características.
+  </p>
+
+  <ion-card *ngFor="let user of users">
+    <ion-item style="position: relative;">
+      <img width="80" class="card-image" slot="start" [src]="user.profile_image_url">
+      <ion-label>
+        <h3>
+          {{ user.name }}
+          <div class="user-status offline"></div>
+        </h3>
+        <p>{{ user.city }} / {{ user.state }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-card-content>
+      Idade: {{ user.age }} anos <br>
+      Interesses: {{ user.show_preferences }}
+      <br>
+      <ion-button size="small" (click)="sendInvite(user)">
+        Enviar convite
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

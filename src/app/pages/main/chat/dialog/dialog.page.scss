@@ -1,0 +1,141 @@
+.sender-block,
+.receiver-block {
+  padding: 15px;
+  margin: 15px;
+  border-radius: 15px;
+}
+
+.sender-block {
+  background-color: var(--ion-color-primary);
+  color: var(--ion-color-primary-contrast);
+  margin-left: 30%;
+
+  a {
+    color: var(--ion-color-primary-contrast) !important;
+  }
+}
+
+.receiver-block {
+  background-color: var(--ion-color-primary-contrast);
+  color: var(--ion-color-primary);
+  margin-right: 30%;
+  a {
+    color: var(--ion-color-primary) !important;
+  }
+}
+
+div.profile_info {
+  display: flex;
+  .profile_img {
+    width: 50px;
+    height: 50px;
+
+    &::part(image) {
+      border-radius: 50px !important;
+    }
+  }
+
+  div.user_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+
+    .user_name {
+      text-transform: capitalize;
+      font-size: 14px;
+    }
+
+    .user_status {
+      font-size: 10px;
+    }
+  }
+}
+
+.chat_actions {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  .emoji_btn {
+    margin-inline-end: 5px;
+  }
+
+  ion-textarea {
+    border-radius: 5px;
+    background: lightgray;
+
+    .sc-ion-textarea-md,
+    .sc-ion-textarea-ios {
+      --padding-start: 10px;
+      --padding-top: 10px;
+    }
+    height: 45px !important;
+
+    min-height: 1.5em; // Ajuste conforme necessário
+
+    // Defina a altura máxima para exibir até 3 linhas de texto
+    max-height: calc(1.5em * 3) !important; // Ajuste conforme necessário
+
+    // Permita a rolagem vertical quando o texto exceder a altura máxima
+    overflow-y: auto;
+
+    // Adicione uma transição suave para animar as mudanças de altura
+    transition: height 0.2s ease-in-out;
+  }
+
+  .list_action_btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-inline-end: -5px;
+  }
+}
+
+.emojiContainer {
+  ion-content {
+    --background: white !important;
+    background: white !important;
+  }
+}
+
+ion-footer {
+  --background: white !important;
+  background: white !important;
+}
+
+.container {
+  overflow-y: scroll; /* Enable vertical scrolling */
+}
+
+.attachment_url_img {
+  &::part(image) {
+    border-radius: 10px;
+    padding-bottom: 5px;
+  }
+}
+
+.pressed_button {
+  background-color: #5e028f;
+  color: white;
+  border-radius: 6px;
+}
+
+.audio_url {
+  audio::-webkit-media-controls-mute-button,
+  audio::-webkit-media-controls-volume-slider,
+  audio::-webkit-media-controls-fullscreen-button,
+  audio::-webkit-media-controls-volume-control-container {
+    display: none;
+    padding: 0;
+    width: 0;
+    margin: 0;
+  }
+
+  audio::-webkit-media-controls-panel {
+    -webkit-justify-content: center;
+  }
+
+  audio {
+    // height: 1.5em;
+    width: 100%;
+  }
+}

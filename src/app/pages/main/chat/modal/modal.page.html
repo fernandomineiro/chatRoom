@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>Pessoas</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="backButton" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-row>
+    <ion-col size="3">
+      <img width="80" [src]="user.image" style="border-radius: 50px">
+    </ion-col>
+
+    <ion-col size="9">
+      <div [innerHtml]="user.title"></div>
+    </ion-col>
+  </ion-row>
+
+  <br>
+
+  <ion-row class="ion-text-center">
+    <ion-col size="4">
+      <b>Sexo</b> <br>
+      <img height="30" [src]="user.gender.icon_url"> <br>
+      {{ user.gender.name }}
+    </ion-col>
+
+    <ion-col size="4">
+      <b>Interesse</b> <br>
+      <img height="30" [src]="user.interest.icon_url"> <br>
+      {{ user.interest.name }}
+    </ion-col>
+
+    <ion-col size="4">
+      <b>Declaração</b> <br>
+      <img height="30" [src]="user.yourselfDeclaration.icon_url"> <br>
+      {{ user.yourselfDeclaration.name }}
+    </ion-col>
+  </ion-row>
+
+  <p>
+    <small>Se interessa por:</small>
+  </p>
+
+  <ion-row class="ion-text-center">
+    <ion-col size="4" *ngFor="let preference of user.preferences">
+      <b>{{ preference.name }}</b> <br>
+      <img height="30" [src]="preference.icon_url">
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!showForm && sender">
+    <ion-col size="12">
+      <p>
+        <small>Mensagem que {{ genderText }} enviou:</small> <br>
+        {{ message }}
+      </p>
+    </ion-col>
+
+    <ion-col size="6">
+      <ion-button color="primary" expand="block" (click)="startChat()">
+        Iniciar conversa
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="6">
+      <ion-button color="light" expand="block" (click)="declineInvite()">
+        Cancelar convite
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <section *ngIf="!showForm && !sender">
+    <p>
+      <small>Mensagem que você enviou:</small> <br>
+      {{ message }}
+    </p>
+
+    <ion-button color="light" expand="block">
+      <ion-text color="danger">
+        Convite já enviado. <br>
+        Aguardando resposta.
+      </ion-text>
+    </ion-button>
+  </section>
+
+  <form *ngIf="showForm" (submit)="invite()">
+    <ion-text color="primary">
+      <i>
+        <small>
+          DICA: coloque na mensagem os melhores horários para conversar com você.
+        </small>
+      </i>
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="stacked">Mensagem:</ion-label>
+      <ion-input name="message" type="text" [(ngModel)]="message"></ion-input>
+    </ion-item>
+
+    <ion-button
+      type="submit"
+      color="primary"
+      expand="block"
+      class="ion-margin-top"
+      [disabled]="message == ''">
+      {{ actionButton }}
+    </ion-button>
+  </form>
+
+</ion-content>

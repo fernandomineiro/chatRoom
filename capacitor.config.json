@@ -1,0 +1,35 @@
+{
+  "appId": "br.com.saladeencontro",
+  "appName": "Sala de Encontro",
+  "webDir": "dist/saladeencontro",
+  "backgroundColor": "#ffffff",
+  "cordova": {},
+  "server": {
+    "allowNavigation": [
+      "*"
+    ],
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true
+  },
+  "SplashScreen": {
+    "launchShowDuration": 3000,
+    "backgroundColor": "#ffffff",
+    "androidSplashResourceName": "splash",
+    "androidScaleType": "CENTER_CROP",
+    "showSpinner": true,
+    "androidSpinnerStyle": "large",
+    "iosSpinnerStyle": "small",
+    "spinnerColor": "#999999",
+    "splashFullScreen": true,
+    "splashImmersive": true
+  },
+  "PushNotifications": {
+    "presentationOptions": [
+      "badge",
+      "sound",
+      "alert"
+    ]
+  }
+}

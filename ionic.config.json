@@ -1,0 +1,8 @@
+{
+  "name": "app-sala-de-encontro",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary" mode="md">
+    <ion-title>Cartões de crédito</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main/home" text="" icon="arrow-back-outline"></ion-back-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/main/credit-card/form">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <p class="ion-text-center" *ngIf="cards.length == 0"> Você não possui nenhum cartão cadastrado! </p>
+
+  <div class="ion-margin-bottom" *ngFor="let card of cards">
+    <div class="credit-cart card-color-jcb">
+      <span class="credit-cart-header">
+        {{ card.card_banner.name }}
+      </span>
+
+      <span class="credit-cart-name">
+        {{ card.formatted_name }}
+      </span>
+
+      <span class="credit-cart-date">
+        Validade: {{ card.formatted_validate_date }}
+      </span>
+    </div>
+
+    <ion-button color="danger" expand="block" size="small" (click)="remove(card.id)">
+      <ion-icon name="trash-outline" style="font-size: 1rem;"></ion-icon>
+      Excluir cartão
+    </ion-button>
+  </div>
+
+</ion-content>

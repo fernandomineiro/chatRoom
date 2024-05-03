@@ -1,0 +1,28 @@
+div.userTerms {
+  text-align: justify;
+  height: 90%;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 10px;
+  padding-inline: 10px;
+
+
+}
+
+ion-label.accept-label {
+  text-wrap: wrap;
+}
+
+.terms-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Faz o contêiner principal ocupar toda a altura da viewport */
+  justify-content: space-between; /* Distribui o espaço entre os elementos */
+}
+
+.termos-de-uso-container {
+  text-align: justify;
+  overflow-y: auto;
+  flex-grow: 1; /* Faz com que a div dos termos de uso ocupe o espaço disponível */
+  margin-bottom: 16px; /* Espaçamento entre os termos de uso e o checkbox */
+}
